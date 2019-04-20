@@ -20,30 +20,30 @@ This is a repository for dev experience vanilla js where we should learn about h
 1. Create invaders
 
 ```js
-        createInvaders: function () {
-            var invader;
-            var alien;
-            var invaders = this.invaders;
-            var body = document.body;
+createInvaders: function () {
+    var invader;
+    var alien;
+    var invaders = this.invaders;
+    var body = document.body;
 
-            for (var i = 0; i < this.alienRows; i++) {
-                invaders[i] = [];
-                console.log('i:' + i);
-                for (var j = 0; j <= this.alienColumns; j++) {
-                    alien = AlienFactory.getAlien(i);
-                    invader = new Sprite(alien.class[0], alien.width, alien.height);
+    for (var i = 0; i < this.alienRows; i++) {
+        invaders[i] = [];
+        console.log('i:' + i);
+        for (var j = 0; j <= this.alienColumns; j++) {
+            alien = AlienFactory.getAlien(i);
+            invader = new Sprite(alien.class[0], alien.width, alien.height);
 
-                    console.log('j: ' + j);
-                    invader.position({
-                        x: 1 + j * this.distanceX,
-                        y: i * this.distanceY
-                    })
+            console.log('j: ' + j);
+            invader.position({
+                x: 1 + j * this.distanceX,
+                y: i * this.distanceY
+            })
 
-                    invaders[i][j] = invader;
-                    body.appendChild(invader.getElement());
-                }
-            }
-        },
+            invaders[i][j] = invader;
+            body.appendChild(invader.getElement());
+        }
+    }
+},
 ```
 
 2. Alien Factory for getting an alien instance
@@ -96,21 +96,21 @@ let AlienFactory = (function () {
 3. Move aliens
 
 ```js
- moveAliens: function () {
-            var invaders = this.invaders;
-            var invader;
-            this.currentStep += this.direction;
+moveAliens: function () {
+        var invaders = this.invaders;
+        var invader;
+        this.currentStep += this.direction;
 
-            for (var i = 0; i < this.alienRows; i++) {
-                for (var j = 0; j < this.alienColumns; j++) {
-                    invader = invaders[i][j];
-                    invader.position({
-                        x: (j * this.distanceX) + this.currentStep * this.stepSize,
-                        y: i * this.distanceY +  this.offsetYs
-                    })
-                }
+        for (var i = 0; i < this.alienRows; i++) {
+            for (var j = 0; j < this.alienColumns; j++) {
+                invader = invaders[i][j];
+                invader.position({
+                    x: (j * this.distanceX) + this.currentStep * this.stepSize,
+                    y: i * this.distanceY +  this.offsetYs
+                })
             }
         }
+    }
 ```
 
 4. Create a sprite representing visually an alien
@@ -172,18 +172,18 @@ let Sprite = (function(){
 ```js
 // function for checking if we should exit right and go left
 exitRight: function () {
-            var invaders = this.invaders;
-            var invader;
-            for (var i = 0; i < this.alienRows; i++) {
-                for (var j = 0; j < this.alienColumns; j++) {
-                    invader = invaders[i][j];
-                    if (invader.getBoundingBox().x + invader.getBoundingBox().width >= this.boardWidth) {
-                        return true;
-                    }
-                }
+    var invaders = this.invaders;
+    var invader;
+    for (var i = 0; i < this.alienRows; i++) {
+        for (var j = 0; j < this.alienColumns; j++) {
+            invader = invaders[i][j];
+            if (invader.getBoundingBox().x + invader.getBoundingBox().width >= this.boardWidth) {
+                return true;
             }
-            return false;
-        },
+        }
+    }
+    return false;
+},
 
 // function for checking if we should exit left and should go right
 exitLeft: function () {
@@ -272,7 +272,7 @@ let BattleShip = (function () {
 
     //inherit from sprite so our battleship is a sprite
     BattleShip.prototype = Object.create(Sprite.prototype);
-    
+
     Object.assign(BattleShip.prototype, {
         constructor: BattleShip,
 
@@ -305,7 +305,7 @@ let BattleShip = (function () {
             x += this.moveSpeed * this.moveDirection;
             this.move(x);
         },
-    // this function is used for moving our player
+     // this function is used for moving our player
         move: function (newX) {
             console.log(newX);
             if (newX <= this.limitLeft) {
