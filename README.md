@@ -133,11 +133,11 @@ let Sprite = (function(){
 
         position: function(positionObject) {
             if(positionObject.x == undefined){
-                positionObject.y = this.x;
+                positionObject.x = this.x;
             }
 
             if(positionObject.y == undefined){
-                positionObject.y = this.x;
+                positionObject.y = this.y;
             }
 
             this.x = positionObject.x;
@@ -253,4 +253,88 @@ for (var i = 0; i < this.alienRows; i++) {
         }
     }
 }
+```
+
+9. Add new Battleship object to represent our hero
+
+```js
+let BattleShip = (function () {
+    function BattleShip(fireCallBack, limitLeft, limitRight) {
+        Sprite.call(this, "battleShip", 39, 24);
+
+        this.moveSpeed = 5;
+        this.direction = 1;
+        this.limitLeft = limitLeft;
+        this.limitRight = limitRight;
+
+        this.addListeners();
+    }
+
+    //inherit from sprite so our battleship is a sprite
+    BattleShip.prototype = Object.create(Sprite.prototype);
+    
+    Object.assign(BattleShip.prototype, {
+        constructor: BattleShip,
+
+    //add event listeners to listen our key events
+        addListeners: function () {
+            this.keyDownListener = this.keyDown.bind(this);
+            this.keyUpListener = this.keyUp.bind(this);
+
+            window.addEventListener("keydown", this.keyDownListener);
+            window.addEventListener("keyup", this.keyUpListener);
+        },
+
+    // when a key is pressed we want to do something like this
+        keyDown: function (e) {
+            switch (e.code) {
+                case "ArrowLeft":
+                    this.leftIsDown = true;
+                    this.moveDirection = -1;
+                    break;
+                case "ArrowRight":
+                    this.rightIsDown = true;
+                    this.moveDirection = 1;
+                    break;
+                case "Space":
+                    this.spaceIsDown = true;
+                    break;
+            }
+
+            x = this.x;
+            x += this.moveSpeed * this.moveDirection;
+            this.move(x);
+        },
+    // this function is used for moving our player
+        move: function (newX) {
+            console.log(newX);
+            if (newX <= this.limitLeft) {
+                newX = 0;
+            }
+            if (newX + this.getBoundingBox().width >= this.limitRight) {
+                newX = this.limitRight - this.getBoundingBox().width;
+            }
+            this.position({
+                x: newX
+            })
+        },
+
+        keyUp: function (e) {
+            switch (e.code) {
+                case "ArrowLeft":
+                    this.leftIsDown = false;
+                    break;
+                case "ArrowRight":
+                    this.rightIsDown = false;
+                    break;
+                case "Space":
+                    this.spaceIsDown = false;
+                    break;
+            }
+        }
+    })
+
+
+    return BattleShip;
+})();
 ```
