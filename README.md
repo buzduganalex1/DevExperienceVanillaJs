@@ -29,7 +29,7 @@ createInvaders: function () {
     for (var i = 0; i < this.alienRows; i++) {
         invaders[i] = [];
         console.log('i:' + i);
-        for (var j = 0; j <= this.alienColumns; j++) {
+        for (var j = 0; j < this.alienColumns; j++) {
             alien = AlienFactory.getAlien(i);
             invader = new Sprite(alien.class[0], alien.width, alien.height);
 
@@ -338,6 +338,7 @@ let BattleShip = (function () {
     return BattleShip;
 })();
 ```
+<<<<<<< HEAD
 
 Collision of objects 
 - Details about collision of rectangle
@@ -359,3 +360,5 @@ isHit: function (box1, box2) {
 ```js
 
 ```
+=======
+>>>>>>> 856b2a15d68dd96490d00ebf82470a149487c252
