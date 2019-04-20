@@ -161,3 +161,18 @@ let Sprite = (function(){
     return Sprite;
 })();
 ```
+
+Prototype using multi sprite
+
+```js
+    // Sprite.call is calling the constructor from sprite
+    function MultiStateSprite(classNames, width, height) {
+        Sprite.call(this, classNames[0], width, height);
+        this.currentState = 0;
+        this.classNames = classNames;
+        this.lastState = classNames.length - 1;
+    }
+
+    // We are establishing the inheritance by setting the prototype
+    MultiStateSprite.prototype = Object.create(Sprite.prototype);
+```
