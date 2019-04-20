@@ -14,7 +14,10 @@ This is a repository for dev experience vanilla js where we should learn about h
 - AlienFactory.js (Factory used for instantiating random aliens)
 - MultiStateSprite.js (Used for handling the state of sprites better)
 
-Create invaders
+
+## Project implementation details
+
+1. Create invaders
 
 ```js
         createInvaders: function () {
@@ -43,7 +46,7 @@ Create invaders
         },
 ```
 
-Alien Factory for getting an alien instance
+2. Alien Factory for getting an alien instance
 
 ```js
 let AlienFactory = (function () {
@@ -90,7 +93,7 @@ let AlienFactory = (function () {
 })();
 ```
 
-Move aliens
+3. Move aliens
 
 ```js
  moveAliens: function () {
@@ -110,7 +113,7 @@ Move aliens
         }
 ```
 
-Create a sprite representing visually an alien
+4. Create a sprite representing visually an alien
 
 ```js
 let Sprite = (function(){
@@ -164,7 +167,7 @@ let Sprite = (function(){
 })();
 ```
 
-Moving left and right
+5. Moving left and right
 
 ```js
 // function for checking if we should exit right and go left
@@ -198,7 +201,7 @@ exitLeft: function () {
 }
 ```
 
-Example of how we use it in the Game manager
+6. Example of how we use it in the Game manager
 
 ```js
 
@@ -212,7 +215,7 @@ if (this.exitRight()) {
 
 ```
 
-Prototype using multi sprite
+7. Prototype using multi sprite
 
 ```js
 // Sprite.call is calling the constructor from sprite
@@ -227,7 +230,7 @@ function MultiStateSprite(classNames, width, height) {
 MultiStateSprite.prototype = Object.create(Sprite.prototype);
 ```
 
-Update the GameManager to support multistate
+8. Update the GameManager to support multistate
 
 ```js
 createInvaders: function () {
