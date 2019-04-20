@@ -4,5 +4,5 @@ function start(){
     var gameManager = new GameManager();
     var body = document.body;
     
-    body.appendChild(gameManager.getElement());
+    body.appendChild(gameManager.getElement());zz
 }
