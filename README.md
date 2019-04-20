@@ -338,9 +338,8 @@ let BattleShip = (function () {
     return BattleShip;
 })();
 ```
-<<<<<<< HEAD
 
-Collision of objects 
+10 Collision of objects 
 - Details about collision of rectangle
 - Details about the circle collision
 
@@ -356,9 +355,5 @@ isHit: function (box1, box2) {
     return false;
 },
 ```
+To be added
 
-```js
-
-```
-=======
->>>>>>> 856b2a15d68dd96490d00ebf82470a149487c252

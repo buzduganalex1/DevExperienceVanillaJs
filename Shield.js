@@ -2,12 +2,14 @@ let Shield = (function () {
     function Shield(className, width, height) {
         this.className = "shield";
         this.width = 18 * 3;
-        this.height = 12 * 4;
+        this.height = 14 * 4;
         Sprite.call(this, this.className, this.width, this.height);
+
         this.bricks = [["shieldFullBrickUpLeft", "shieldFullBrick", "shieldFullBrickUpRight"],
         ["shieldFullBrick", "shieldFullBrick", "shieldFullBrick"],
         ["shieldFullBrick", "shieldFullBrickBottomMiddle", "shieldFullBrick"],
         ["shieldFullBrick", "", "shieldFullBrick"]];
+        
         this.brickSprites = undefined;
         this.hitMatrix = undefined;
         this.createShield();
