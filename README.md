@@ -13,7 +13,7 @@ This is a repository for dev experience vanilla js where we should learn about h
 - GameManager.js (object used for holding the game logic)
 - AlienFactory.js (Factory used for instantiating random aliens)
 - MultiStateSprite.js (Used for handling the state of sprites better)
-
+- Shield.js (Used for representing a shield object on the screen)
 
 ## Project implementation details
 
