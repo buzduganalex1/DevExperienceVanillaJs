@@ -335,7 +335,7 @@ let BattleShip = (function () {
 })();
 ```
 
-10 Collision of objects 
+10 Collision of objects
 
 - Details about collision of rectangle
 - Details about the circle collision

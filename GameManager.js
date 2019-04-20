@@ -20,7 +20,7 @@ let GameManager = (function () {
         this.currentStep = 0;
         this.difficulty = 0;
         this.battleShip;
-         
+
         //shields
         this.shields = [];
 
@@ -34,6 +34,13 @@ let GameManager = (function () {
     };
 
     GameManager.prototype = {
+        startGame: function () {
+            clearInterval(this.interval);
+
+            this.interval = setInterval(this.moveAliens.bind(this), this.stepTime)
+        },
+
+        //creation methods
         createInvaders: function () {
             var invader;
             var invaders = this.invaders;
@@ -57,7 +64,7 @@ let GameManager = (function () {
                 }
             }
         },
-        
+
         createShields: function () {
             var shield;
             var body = document.body;
@@ -124,7 +131,7 @@ let GameManager = (function () {
                 this.fireFrame = requestAnimationFrame(() => {
                     this.moveFire();
                 })
-                
+
                 hitBrick = this.testHitShield(this.fireSprite);
                 hitInvader = this.testHitAlien();
 
@@ -142,6 +149,7 @@ let GameManager = (function () {
             }
 
         },
+
         brickIsHit: function (hitObject) {
             var shield = hitObject.shield;
             var brick = hitObject.brick;
@@ -162,8 +170,18 @@ let GameManager = (function () {
             });
         },
 
-        invaderDie: function (invader) {
-            invader.position({
+        invaderDie: function (hitInvader) {
+            var invaderBBox = hitInvader.getBoundingBox();
+            var explosion = new LimitedLifeSpanSprite("explosion", 200, 39, 27);
+            var explostionBBox = explosion.getBoundingBox();
+            document.body.appendChild(explosion.getElement());
+            explosion.position({
+                x: invaderBBox.x - (explostionBBox.width - invaderBBox.width) / 2,
+                y: invaderBBox.y
+            });
+            explosion.startDeath();
+
+            hitInvader.position({
                 x: -1000,
                 y: -1000
             });
@@ -197,11 +215,7 @@ let GameManager = (function () {
             return false;
         },
 
-        startGame: function () {
-            clearInterval(this.interval);
 
-            this.interval = setInterval(this.moveAliens.bind(this), this.stepTime)
-        },
 
         moveAliens: function () {
             var invaders = this.invaders;
