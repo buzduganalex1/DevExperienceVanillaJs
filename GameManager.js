@@ -15,10 +15,10 @@
             this.distanceY = 50;
 
             this.stepTime = 500,
-                this.interval = undefined;
+            this.interval = undefined;
             this.direction = 1;
 
-            this.stepSize = 10;
+            this.stepSize = 20;
             this.offsetY = 50;
             this.currentStep = 0;
         }
@@ -33,7 +33,7 @@
                 for (var i = 0; i < this.alienRows; i++) {
                     invaders[i] = [];
                     console.log('i:' + i);
-                    for (var j = 0; j <= this.alienColumns; j++) {
+                    for (var j = 0; j < this.alienColumns; j++) {
 
                         alien = AlienFactory.getAlien(i);
                         invader = new Sprite(alien.class[0], alien.width, alien.height);
@@ -68,15 +68,9 @@
                 if (this.exitRight()) {
                     this.currentStep -= 2;
                     this.direction *= -1;
-                    this.difficulty++;
                 } else if (this.exitLeft()) {
                     this.currentStep += 2;
                     this.direction *= -1;
-                    this.difficulty++;
-                    if (this.stepTime > 100) {
-                        this.stepTime -= 50;
-                        this.startGame();
-                    }
                 }
 
                 for (var i = 0; i < this.alienRows; i++) {
@@ -110,7 +104,7 @@
                 for (var i = 0; i < this.alienRows; i++) {
                     for (var j = 0; j < this.alienColumns; j++) {
                         invader = invaders[i][j];
-                        if (invader.getBoundingBox().x <= 0) {
+                        if (invader.getBoundingBox().x <= 0 && this.invadersModel[i][j]) {
                             return true;
                         }
                     }
