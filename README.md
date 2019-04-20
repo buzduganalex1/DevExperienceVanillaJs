@@ -162,6 +162,53 @@ let Sprite = (function(){
 })();
 ```
 
+Moving left and right
+
+```js
+// function for checking if we should exit right and go left
+exitRight: function () {
+            var invaders = this.invaders;
+            var invader;
+            for (var i = 0; i < this.alienRows; i++) {
+                for (var j = 0; j < this.alienColumns; j++) {
+                    invader = invaders[i][j];
+                    if (invader.getBoundingBox().x + invader.getBoundingBox().width >= this.boardWidth) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
+// function for checking if we should exit left and should go right
+exitLeft: function () {
+    var invaders = this.invaders;
+    var invader;
+    for (var i = 0; i < this.alienRows; i++) {
+        for (var j = 0; j < this.alienColumns; j++) {
+            invader = invaders[i][j];
+            if (invader.getBoundingBox().x <= 0 && this.invadersModel[i][j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+```
+
+Example of how we use it in the Game manager
+
+```js
+
+                if (this.exitRight()) {
+                    this.currentStep -= 2;
+                    this.direction *= -1;
+                } else if (this.exitLeft()) {
+                    this.currentStep += 2;
+                    this.direction *= -1;
+                }
+```
+
 Prototype using multi sprite
 
 ```js
