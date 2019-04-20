@@ -43,7 +43,7 @@ Create invaders
         },
 ```
 
-Alien Factory
+Alien Factory for getting an alien instance
 ```js
 let AlienFactory = (function () {
     var aliens = {
@@ -108,7 +108,7 @@ Move aliens
         }
 ```
 
-Create a sprite
+Create a sprite representing visually an alien
 
 ```js
 let Sprite = (function(){
