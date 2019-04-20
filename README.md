@@ -12,6 +12,7 @@ This is a repository for dev experience vanilla js where we should learn about h
 - Sprite.js (object used for representing an alien/sprite)
 - GameManager.js (object used for holding the game logic)
 - AlienFactory.js (Factory used for instantiating random aliens)
+- MultiStateSprite.js (Used for handling the state of sprites better)
 
 Create invaders
 
@@ -200,13 +201,14 @@ Example of how we use it in the Game manager
 
 ```js
 
-                if (this.exitRight()) {
-                    this.currentStep -= 2;
-                    this.direction *= -1;
-                } else if (this.exitLeft()) {
-                    this.currentStep += 2;
-                    this.direction *= -1;
-                }
+if (this.exitRight()) {
+    this.currentStep -= 2;
+    this.direction *= -1;
+} else if (this.exitLeft()) {
+    this.currentStep += 2;
+    this.direction *= -1;
+}
+
 ```
 
 Prototype using multi sprite
