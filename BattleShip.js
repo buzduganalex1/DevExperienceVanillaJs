@@ -7,6 +7,7 @@ let BattleShip = (function () {
         this.limitLeft = limitLeft;
         this.limitRight = limitRight;
 
+        this.animateMove();
         this.addListeners();
     }
 
@@ -68,7 +69,18 @@ let BattleShip = (function () {
                     this.spaceIsDown = false;
                     break;
             }
-        }
+        },
+
+        animateMove: function () {
+            var x = this.x;
+            this.frameReference = requestAnimationFrame(() => {
+                x += this.moveSpeed * this.moveDirection;
+                if ((this.leftIsDown || this.rightIsDown) && !this.isDead) {
+                    this.move(x);
+                }
+                this.animateMove();
+            });
+        },
     })
 
 
