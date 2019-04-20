@@ -5,8 +5,4 @@ function start(){
     var body = document.body;
     
     body.appendChild(gameManager.getElement());
-
-    gameManager.createInvaders();
-    gameManager.createBattleShip();
-    gameManager.startGame();
 }

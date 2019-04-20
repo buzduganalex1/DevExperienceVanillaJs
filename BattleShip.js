@@ -6,9 +6,11 @@ let BattleShip = (function () {
         this.direction = 1;
         this.limitLeft = limitLeft;
         this.limitRight = limitRight;
-
+        this.fireFrameReference;
+        this.fireCallBack = fireCallBack;
         this.animateMove();
         this.addListeners();
+        this.requestFire();
     }
 
     BattleShip.prototype = Object.create(Sprite.prototype);
@@ -36,16 +38,12 @@ let BattleShip = (function () {
                     break;
                 case "Space":
                     this.spaceIsDown = true;
+                    this.moveDirection = 1;
                     break;
             }
-
-            x = this.x;
-            x += this.moveSpeed * this.moveDirection;
-            this.move(x);
         },
 
         move: function (newX) {
-            console.log(newX);
             if (newX <= this.limitLeft) {
                 newX = 0;
             }
@@ -81,8 +79,16 @@ let BattleShip = (function () {
                 this.animateMove();
             });
         },
-    })
 
+        requestFire: function () {
+            this.fireFrameReference = requestAnimationFrame(() => {
+                if (this.spaceIsDown) {
+                    this.fireCallBack();
+                }
+                this.requestFire();
+            });
+        },
+    })
 
     return BattleShip;
 })();
