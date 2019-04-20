@@ -75,7 +75,7 @@ let BattleShip = (function () {
             var x = this.x;
             this.frameReference = requestAnimationFrame(() => {
                 x += this.moveSpeed * this.moveDirection;
-                if ((this.leftIsDown || this.rightIsDown) && !this.isDead) {
+                if ((this.leftIsDown || this.rightIsDown)) {
                     this.move(x);
                 }
                 this.animateMove();
