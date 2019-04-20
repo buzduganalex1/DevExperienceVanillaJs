@@ -15,11 +15,11 @@ let Sprite = (function(){
 
         position: function(positionObject) {
             if(positionObject.x == undefined){
-                positionObject.y = this.x;
+                positionObject.x = this.x;
             }
 
             if(positionObject.y == undefined){
-                positionObject.y = this.x;
+                positionObject.y = this.y;
             }
 
             this.x = positionObject.x;

@@ -21,6 +21,11 @@
             this.stepSize = 20;
             this.offsetY = 50;
             this.currentStep = 0;
+
+            this.battleShip;
+            this.fireSprite;
+            this.firing = false;
+            this.fireFrame = null;
         }
 
         GameManager.prototype = {
@@ -99,13 +104,28 @@
                 for (var i = 0; i < this.alienRows; i++) {
                     for (var j = 0; j < this.alienColumns; j++) {
                         invader = invaders[i][j];
-                        if (invader.getBoundingBox().x <= 0 && this.invadersModel[i][j]) {
+                        if (invader.getBoundingBox().x <= 0) {
                             return true;
                         }
                     }
                 }
                 return false;
-            }
+            },
+            
+            createBattleShip: function () {
+                var body = document.body;
+                var battleShip = new BattleShip(this.fire,0,this.boardWidth);
+            
+                battleShip.position({
+                    x: 1000 / 2 - 50 / 2,
+                    y: 800 - 50
+                });
+                
+                body.appendChild(battleShip.getElement());
+                
+
+                console.log(battleShip);
+            },
         }
 
         return GameManager;

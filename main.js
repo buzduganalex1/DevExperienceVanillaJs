@@ -7,6 +7,6 @@ function start(){
     body.appendChild(gameManager.getElement());
 
     gameManager.createInvaders();
-
+    gameManager.createBattleShip();
     gameManager.startGame();
 }
