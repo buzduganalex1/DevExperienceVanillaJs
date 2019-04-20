@@ -62,7 +62,7 @@ let AlienFactory = (function () {
 
     AlienFactory.prototype = {
         getAlien: function (type) {
-            randomEnemy = Math.floor(Math.random() * 3) + 0;
+            // randomEnemy = Math.floor(Math.random() * 3) + 0;
 
             switch (randomEnemy) {
                 case 0:
@@ -192,7 +192,7 @@ exitLeft: function () {
     for (var i = 0; i < this.alienRows; i++) {
         for (var j = 0; j < this.alienColumns; j++) {
             invader = invaders[i][j];
-            if (invader.getBoundingBox().x <= 0 && this.invadersModel[i][j]) {
+            if (invader.getBoundingBox().x <= 0) {
                 return true;
             }
         }
@@ -300,10 +300,6 @@ let BattleShip = (function () {
                     this.spaceIsDown = true;
                     break;
             }
-
-            x = this.x;
-            x += this.moveSpeed * this.moveDirection;
-            this.move(x);
         },
      // this function is used for moving our player
         move: function (newX) {
@@ -340,6 +336,7 @@ let BattleShip = (function () {
 ```
 
 10 Collision of objects 
+
 - Details about collision of rectangle
 - Details about the circle collision
 
