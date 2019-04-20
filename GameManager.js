@@ -29,26 +29,6 @@ let GameManager = (function () {
             var alien;
             var invaders = this.invaders;
             var body = document.body;
-            // var aliens = [];
-
-            // for (var i = 0; i < this.alienRows * this.alienColumns; i++) {
-            //     aliens[i] = AlienFactory.getAlien(i);
-            // }
-
-            // for (var i = 1; i <= this.alienRows * this.alienColumns; i++) {
-            //     console.log('i:' + i);
-            //     for (var j = 1; j <= i; j++) {
-            //         console.log('j: ' + j);
-            //         var alien = aliens[i];
-            //         invader = new Sprite(alien.class[0], alien.width, alien.height);
-                    
-            //         invader.position({
-            //             x: 1 + j * this.distanceX,
-            //             y: i * this.distanceY
-            //         })
-            //         body.appendChild(invader.getElement());
-            //     }
-            // }
 
             for (var i = 0; i < this.alienRows; i++) {
                 invaders[i] = [];
