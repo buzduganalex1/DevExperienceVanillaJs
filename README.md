@@ -27,7 +27,6 @@ Create invaders
                 invaders[i] = [];
                 console.log('i:' + i);
                 for (var j = 0; j <= this.alienColumns; j++) {
-                    
                     alien = AlienFactory.getAlien(i);
                     invader = new Sprite(alien.class[0], alien.width, alien.height);
 
@@ -45,6 +44,7 @@ Create invaders
 ```
 
 Alien Factory for getting an alien instance
+
 ```js
 let AlienFactory = (function () {
     var aliens = {
@@ -91,6 +91,7 @@ let AlienFactory = (function () {
 ```
 
 Move aliens
+
 ```js
  moveAliens: function () {
             var invaders = this.invaders;
@@ -214,14 +215,39 @@ if (this.exitRight()) {
 Prototype using multi sprite
 
 ```js
-    // Sprite.call is calling the constructor from sprite
-    function MultiStateSprite(classNames, width, height) {
-        Sprite.call(this, classNames[0], width, height);
-        this.currentState = 0;
-        this.classNames = classNames;
-        this.lastState = classNames.length - 1;
-    }
+// Sprite.call is calling the constructor from sprite
+function MultiStateSprite(classNames, width, height) {
+    Sprite.call(this, classNames[0], width, height);
+    this.currentState = 0;
+    this.classNames = classNames;
+    this.lastState = classNames.length - 1;
+}
 
-    // We are establishing the inheritance by setting the prototype
-    MultiStateSprite.prototype = Object.create(Sprite.prototype);
+// We are establishing the inheritance by setting the prototype
+MultiStateSprite.prototype = Object.create(Sprite.prototype);
+```
+
+Update the GameManager to support multistate
+
+```js
+createInvaders: function () {
+            var invader;
+            var invaders = this.invaders;
+            var alien;
+            var body = document.body;
+
+            for (var i = 0; i < this.alienRows; i++) {
+                invaders[i] = [];
+                for (var j = 0; j < this.alienColumns; j++) {
+                    alien = AlienFactory.getAlien(i);
+                    invader = new MultiStateSprite(alien.class, alien.width, alien.height);
+                    invader.position({
+                        x: 1 + j * this.distanceX,
+                        y: i * this.distanceY
+                    });
+                    invaders[i][j] = invader;
+                    body.appendChild(invader.getElement());
+                }
+            }
+        }
 ```

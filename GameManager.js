@@ -26,24 +26,19 @@
         GameManager.prototype = {
             createInvaders: function () {
                 var invader;
-                var alien;
                 var invaders = this.invaders;
+                var alien;
                 var body = document.body;
 
                 for (var i = 0; i < this.alienRows; i++) {
                     invaders[i] = [];
-                    console.log('i:' + i);
                     for (var j = 0; j < this.alienColumns; j++) {
-
                         alien = AlienFactory.getAlien(i);
-                        invader = new Sprite(alien.class[0], alien.width, alien.height);
-
-                        console.log('j: ' + j);
+                        invader = new MultiStateSprite(alien.class, alien.width, alien.height);
                         invader.position({
                             x: 1 + j * this.distanceX,
                             y: i * this.distanceY
-                        })
-
+                        });
                         invaders[i][j] = invader;
                         body.appendChild(invader.getElement());
                     }
