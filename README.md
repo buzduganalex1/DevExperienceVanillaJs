@@ -355,5 +355,5 @@ isHit: function (box1, box2) {
     return false;
 },
 ```
-To be added
 
+# To be added the rest of the presentation 
