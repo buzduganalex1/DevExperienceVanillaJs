@@ -20,12 +20,16 @@ let GameManager = (function () {
         this.currentStep = 0;
         this.difficulty = 0;
         this.battleShip;
+         
+        //shields
+        this.shields = [];
 
         this.firing = false;
         this.fireFrame = null;
         this.fireSpeed = -13;
         this.createInvaders();
         this.createBattleShip();
+        this.createShields();
         this.startGame();
     };
 
@@ -51,6 +55,23 @@ let GameManager = (function () {
                     this.invadersModel[i][j] = 1;
                     body.appendChild(invader.getElement());
                 }
+            }
+        },
+        
+        createShields: function () {
+            var shield;
+            var body = document.body;
+            var nX = 106;
+            var xDist = 106 + 54;
+            for (var i = 0; i < 4; i++) {
+                shield = new Shield();
+                body.appendChild(shield.getElement());
+                shield.position({
+                    x: nX,
+                    y: 650
+                });
+                this.shields.push(shield);
+                nX += xDist;
             }
         },
 
@@ -103,14 +124,31 @@ let GameManager = (function () {
                 this.fireFrame = requestAnimationFrame(() => {
                     this.moveFire();
                 })
-
+                
+                hitBrick = this.testHitShield(this.fireSprite);
                 hitInvader = this.testHitAlien();
+
                 if (hitInvader) {
                     this.invaderDie(hitInvader);
                     this.cancelFire();
                 }
+
+                if (hitBrick) {
+                    this.brickIsHit(hitBrick);
+                    this.cancelBattleShipFire();
+                }
             } else {
                 this.cancelFire();
+            }
+
+        },
+        brickIsHit: function (hitObject) {
+            var shield = hitObject.shield;
+            var brick = hitObject.brick;
+
+            brick.nextState();
+            if (brick.getState() == 4) {
+                shield.remove(brick);
             }
         },
 
@@ -223,7 +261,46 @@ let GameManager = (function () {
 
         getElement: function () {
             return this.element;
-        }
+        },
+
+        testHitShield: function (fireSprite) {
+            var bulletBBox = fireSprite.getBoundingBox();
+            var shield;
+            var shieldBBox;
+            var shieldBrickBox;
+            var bricksMatrix;
+            var hitMatrix;
+            for (var i = 0; i < this.shields.length; i++) {
+                shield = this.shields[i];
+                bricksMatrix = shield.getBricks();
+                shieldBBox = shield.getBoundingBox();
+                hitMatrix = shield.getHitMatrix();
+                for (var k = 0; k < bricksMatrix.length; k++) {
+                    for (var l = 0; l < bricksMatrix[k].length; l++) {
+                        shieldBrickBox = Object.assign({}, bricksMatrix[k][l].getBoundingBox());
+                        shieldBrickBox.x += shieldBBox.x;
+                        shieldBrickBox.y += shieldBBox.y;
+                        if (this.isHit(bulletBBox, shieldBrickBox) && hitMatrix[k][l]) {
+                            return {
+                                shield: shield,
+                                brick: bricksMatrix[k][l]
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        },
+
+        cancelBattleShipFire: function () {
+            this.firing = false;
+            cancelAnimationFrame(this.fireFrame);
+            this.fireFrame = null;
+            this.fireSprite.position({
+                x: -1000,
+                y: -1000
+            });
+        },
     }
 
     return GameManager;

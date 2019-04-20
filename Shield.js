@@ -17,24 +17,6 @@ let Shield = (function () {
 
     Shield.prototype = Object.create(Sprite.prototype);
     Object.assign(Shield.prototype, {
-        getBricks: function() {
-            return this.brickSprites;
-        },
-
-        getHitMatrix: function() {
-            return this.hitMatrix;
-        },
-
-        remove: function(brick) {
-            for (var i = 0; i < this.brickSprites.length; i++) {
-                for (var j = 0; j < this.brickSprites[i].length; j++) {
-                    if (brick == this.brickSprites[i][j]) {
-                        this.hitMatrix[i][j] = 0;
-                    }
-                }
-            }
-        },
-
         createShield: function () {
             this.brickSprites = [];
             this.hitMatrix = [];
@@ -56,6 +38,24 @@ let Shield = (function () {
                 }
             }
             this.hitMatrix[3][1] = 0;
+        },
+
+        getBricks: function() {
+            return this.brickSprites;
+        },
+
+        getHitMatrix: function() {
+            return this.hitMatrix;
+        },
+
+        remove: function(brick) {
+            for (var i = 0; i < this.brickSprites.length; i++) {
+                for (var j = 0; j < this.brickSprites[i].length; j++) {
+                    if (brick == this.brickSprites[i][j]) {
+                        this.hitMatrix[i][j] = 0;
+                    }
+                }
+            }
         },
 
         reset: function() {
